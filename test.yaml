@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Pet Store
+  description: Store that contains pets
+  version: 1.0.0
+  contact: 
+    email: bendaron2230@gmail.com
+    name: Aron
+paths: 
+  /pet:
+    post:
+      tags:
+        - pet
+      summary: Creates a pet
+      description: This creates a pet in your store
+      responses: 
+        '200': 
+          description: Sucessful
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pet'
+      
+components: 
+  schemas: 
+    pet: 
+      type: object
+      properties: 
+          name: 
+            type: string
+            format: string
+            example: dog
+          description: 
+            type: string
+            format: string
+            example: woof
+          id:
+            type: integer
+            format: int64
+            example: 10
+          
