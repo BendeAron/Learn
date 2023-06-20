@@ -3,39 +3,86 @@ info:
   title: Pet Store
   description: Store that contains pets
   version: 1.0.0
-  contact: 
+  contact:
     email: bendaron2230@gmail.com
     name: Aron
-paths: 
+paths:
   /pet:
     post:
       tags:
         - pet
       summary: Creates a pet
       description: This creates a pet in your store
-      responses: 
-        '200': 
+      responses:
+        "200":
           description: Sucessful
-          content: 
+          content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pet'
-      
-components: 
-  schemas: 
-    pet: 
-      type: object
-      properties: 
-          name: 
-            type: string
-            format: string
-            example: dog
-          description: 
-            type: string
-            format: string
-            example: woof
-          id:
+                $ref: "#/components/schemas/pet"
+    put:
+      tags:
+        - pet
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: updatePet
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/pet"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pet"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Pet not found
+        "405":
+          description: Validation exception
+
+  /pet/{petId}:
+    get:
+      tags:
+        - pet
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
             type: integer
-            format: int64
-            example: 10
-          
+      summary: Find pet by ID
+      description: Find a pet by its ID
+      responses:
+        "200":
+          description: Sucessful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pet"
+        "404":
+          description: Failed
+
+components:
+  schemas:
+    pet:
+      type: object
+      properties:
+        name:
+          type: string
+          format: string
+          example: dog
+        description:
+          type: string
+          format: string
+          example: woof
+        id:
+          type: integer
+          format: int64
+          example: 10
